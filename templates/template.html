@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <meta http-equiv="refresh" content="5" > -->
+    <title>GenDog&#8482;</title>
+    <link
+      rel="stylesheet"
+      href="<https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css>"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+  </head>
+  <body>
+    <section class="section">
+      <div class="columns">
+        <div class="column is-one-third">
+          <div class="container">
+            <h1 class="title">GenDog&#8482;</h1>
+            <p class="subtitle">Generate Dog Pictures By Breed</p>
+            <form method="POST">
+              <div class="field">
+                <label class="label">Pick A Breed</label>
+                <div class="control">
+                  <div class="select">
+                    <select name="breed" required>
+                      {% for breed in breeds %}
+                      <option value="{{breed}}">{{breed}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Limit</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    style="width: 200px"
+                    name="limit"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button
+                    class="button is-link"
+                    value="getDogPics"
+                    name="submit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+            <form method="POST">
+              <div class="control mt-4">
+                <button
+                  class="button is-link is-danger"
+                  value="clearDogPics"
+                  name="submit"
+                >
+                  Clear Photos
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="column">
+          {% if link|length > 0 %}
+          <ul>
+            {% for links in link %}
+            <li style="margin: 5px">
+              <img src="{{links}}" />
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
